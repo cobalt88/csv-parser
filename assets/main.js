@@ -3,6 +3,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const objArr = []
 
 fs.readFile(path.join(__dirname, 'laticrete_zips.csv'), 'utf-8', (error, csv) => {
   if (error) {
@@ -18,11 +19,12 @@ fs.readFile(path.join(__dirname, 'laticrete_zips.csv'), 'utf-8', (error, csv) =>
     const object = {};
     values.forEach((value, index) => {
       object[headers[index]] = value;
-    });
-    return object;
+    }); 
+    objArr.push(object)
   });
-  console.log(objects);
+  console.log(objArr)
 });
+
 
 
 // function csvToArray(str, delimiter = ",") {

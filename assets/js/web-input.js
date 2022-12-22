@@ -1,9 +1,15 @@
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFile");
-const formattedCSV = []
-const csvToArray = (str, delimiter = ",") =>  {
+let formattedCSV = []
 
-  let headers = str.slice(0, str.indexOf("\r\n")).split(delimiter);
+
+function csvToArray(str, delimiter = ",") {
+
+  const headers = str.slice(0, str.indexOf("\r\n")).split(delimiter)
+  
+  headers.forEach(e => {
+    e = e.replace(/ /g, '_')
+  });
 
   console.log(headers)
 
@@ -18,7 +24,8 @@ const csvToArray = (str, delimiter = ",") =>  {
     return el;
   });
 
-  return arr;
+  // return arr;
+  // console.log(arr)
 }
 
 myForm.addEventListener("submit", function (e) {
@@ -29,11 +36,10 @@ myForm.addEventListener("submit", function (e) {
   reader.onload = function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
-
-    console.log(data[0][0])
+    formattedCSV = data
   };
   
   reader.readAsText(input);
-  console.log(formattedCSV)
+  // console.log(formattedCSV)
 });
 
